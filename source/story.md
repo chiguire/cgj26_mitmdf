@@ -1,0 +1,1 @@
+At the strike of midnight, 

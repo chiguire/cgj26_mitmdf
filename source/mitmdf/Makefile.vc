@@ -22,6 +22,7 @@ common		= $(PDCURSES_SRCDIR)\common
 
 SDLBASE = $(PDCURSES_SRCDIR)\..\SDL2-2.32.10
 MITMDF = mitdf$(E)
+CUSTOM_INCLUDE = -Iinclude
 PLATFORM = x86
 SDL2_INCLUDE = -I$(SDLBASE)\include
 SDL2_LIB = $(SDLBASE)\lib\$(PLATFORM)\SDL2.lib
@@ -122,8 +123,14 @@ pdcurses.res pdcurses.obj: $(common)\pdcurses.rc
 .obj.exe:
 	$(LINK) $(LDFLAGS) $< $(LIBCURSES) $(CCLIBS)
 
-main.obj: main.cpp
-	$(BUILD) -Dmain=SDL_main $(SDL2_INCLUDE) main.cpp
+main.obj: main.cpp 
+	$(BUILD) -Dmain=SDL_main $(SDL2_INCLUDE) $(CUSTOM_INCLUDE) main.cpp
 
-mitmdf.exe: main.obj
-	$(LINK) $(LDFLAGS) main.obj $(LIBCURSES) $(LIBLIBS) $(CCLIBS)
+texts.obj: texts.cpp
+	$(BUILD) -Dmain=SDL_main $(SDL2_INCLUDE) $(CUSTOM_INCLUDE) texts.cpp
+
+game.obj: game.cpp
+	$(BUILD) -Dmain=SDL_main $(SDL2_INCLUDE) $(CUSTOM_INCLUDE) game.cpp
+
+mitmdf.exe: main.obj texts.obj game.obj
+	$(LINK) $(LDFLAGS) main.obj texts.obj game.obj $(LIBCURSES) $(LIBLIBS) $(CCLIBS)
