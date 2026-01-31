@@ -11,7 +11,7 @@ E = .exe
 RM = del
 
 !ifndef PDCURSES_SRCDIR
-PDCURSES_SRCDIR = ..
+PDCURSES_SRCDIR = ..\PDCurses-2b6a9e9
 !endif
 
 osdir		= $(PDCURSES_SRCDIR)\sdl2
@@ -59,7 +59,7 @@ LINK		= link.exe -nologo -subsystem:windows
 
 LIBEXE		= lib -nologo
 
-LIBCURSES	= pdcurses.lib
+LIBCURSES	= $(PDCURSES_SRCDIR)\sdl2\pdcurses.lib
 CURSESDLL	= pdcurses.dll
 
 !ifdef DLL
@@ -122,20 +122,8 @@ pdcurses.res pdcurses.obj: $(common)\pdcurses.rc
 .obj.exe:
 	$(LINK) $(LDFLAGS) $< $(LIBCURSES) $(CCLIBS)
 
-tuidemo.exe: tuidemo.obj tui.obj
-	$(LINK) $(LDFLAGS) $*.obj tui.obj $(LIBCURSES) $(CCLIBS)
-
-tui.obj: $(demodir)\tui.c $(demodir)\tui.h
-	$(BUILD) -I$(demodir) $(demodir)\tui.c
-
-tuidemo.obj: $(demodir)\tuidemo.c
-	$(BUILD) -Dmain=SDL_main -I$(demodir) $(demodir)\tuidemo.c
-
-sdltest.exe: sdltest.obj
-	$(LINK) $(LDFLAGS) $*.obj $(LIBCURSES) $(LIBLIBS) $(CCLIBS)
-
-main.obj: main.c
-	$(BUILD) -Dmain=SDL_main $(SDL2_INCLUDE) main.c
+main.obj: main.cpp
+	$(BUILD) -Dmain=SDL_main $(SDL2_INCLUDE) main.cpp
 
 mitmdf.exe: main.obj
 	$(LINK) $(LDFLAGS) main.obj $(LIBCURSES) $(LIBLIBS) $(CCLIBS)
