@@ -50,3 +50,15 @@ needs to apply the patch to the victim, and the patch acts only after 5 seconds.
 The murderer hands are usually a bit red after handling this patch. The patch
 dissolves, leaving no trace of it. The victim's nails look blue-ish after the
 patch does its effect.
+
+==
+
+Suspect Description
+===================
+
+First name: {{FIRST_NAME}}
+Last name: {{LAST_NAME}}
+Eyes colour: {{EYE_COLOUR}}
+Gender: {{GENDER}}
+Mask: {{MASK_TYPE}}, {{MASK_BASE_COLOUR}} base, {{MASK_LIPS_COLOR}} lips, {{MASK_EYESHADOW_COLOR}} eyeshadow
+Cape colour: {{CAPE_COLOUR}}
