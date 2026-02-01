@@ -30,7 +30,7 @@ SDL2_LIBMAIN = $(SDLBASE)\lib\$(PLATFORM)\SDL2main.lib
 
 PDCURSES_WIN_H	= $(osdir)\pdcsdl.h
 
-CC		= cl.exe -nologo
+CC		= cl.exe -nologo /EHsc
 
 !ifdef DEBUG
 CFLAGS		= -Z7 -DPDCDEBUG
@@ -126,11 +126,8 @@ pdcurses.res pdcurses.obj: $(common)\pdcurses.rc
 main.obj: main.cpp 
 	$(BUILD) -Dmain=SDL_main $(SDL2_INCLUDE) $(CUSTOM_INCLUDE) main.cpp
 
-texts.obj: texts.cpp
-	$(BUILD) -Dmain=SDL_main $(SDL2_INCLUDE) $(CUSTOM_INCLUDE) texts.cpp
-
 game.obj: game.cpp
 	$(BUILD) -Dmain=SDL_main $(SDL2_INCLUDE) $(CUSTOM_INCLUDE) game.cpp
 
-mitmdf.exe: main.obj texts.obj game.obj
-	$(LINK) $(LDFLAGS) main.obj texts.obj game.obj $(LIBCURSES) $(LIBLIBS) $(CCLIBS)
+mitmdf.exe: main.obj game.obj
+	$(LINK) $(LDFLAGS) main.obj game.obj $(LIBCURSES) $(LIBLIBS) $(CCLIBS)
